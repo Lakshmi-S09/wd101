@@ -44,22 +44,6 @@ const saveUserForm = (event) => {
     const password = document.getElementById("password").value;
     const dob = document.getElementById("dob").value;
 
-    //starts here
-    const birthDate = new Date(dob);
-const today = new Date();
-let age = today.getFullYear() - birthDate.getFullYear();
-const m = today.getMonth() - birthDate.getMonth();
-
-if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-}
-
-if (age < 18 || age > 55) {
-    alert("Age must be between 18 and 55 years.");
-    return; // stop form submission
-}
-    //stops here
-
     const acceptedTermsAndConditions = document.getElementById("checkbox").checked;
     
     const entry = {
