@@ -1,5 +1,33 @@
 let userForm = document.getElementById("user-form");
 
+// ✅ Date picker restriction
+window.addEventListener("DOMContentLoaded", () => {
+    const dobInput = document.getElementById("dob");
+    const today = new Date();
+
+    const maxDate = new Date(
+        today.getFullYear() - 18,
+        today.getMonth(),
+        today.getDate()
+    );
+    const minDate = new Date(
+        today.getFullYear() - 55,
+        today.getMonth(),
+        today.getDate()
+    );
+
+    const formatDate = (date) => {
+        let month = "" + (date.getMonth() + 1);
+        let day = "" + date.getDate();
+        const year = date.getFullYear();
+        if (month.length < 2) month = "0" + month;
+        if (day.length < 2) day = "0" + day;
+        return `${year}-${month}-${day}`;
+    };
+
+    dobInput.min = formatDate(minDate);
+    dobInput.max = formatDate(maxDate);
+    
 const retrieveEntries = () => {
     let entries = localStorage.getItem("user-entries");
     if (entries) {
@@ -44,7 +72,7 @@ const saveUserForm = (event) => {
     const acceptedTermsAndConditions = document.getElementById("checkbox").checked;
 
     // ✅ Age Validation
-    const birthDate = new Date(dob);
+   /* const birthDate = new Date(dob);
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();
     const m = today.getMonth() - birthDate.getMonth();
@@ -55,7 +83,7 @@ const saveUserForm = (event) => {
     if (age < 18 || age > 55) {
         alert("Age must be between 18 and 55 years.");
         return;
-    }
+    }*/
 
     const entry = {
         name,
@@ -72,32 +100,5 @@ const saveUserForm = (event) => {
 
 userForm.addEventListener("submit", saveUserForm);
 displayEntries();
-
-// ✅ Date picker restriction
-window.addEventListener("DOMContentLoaded", () => {
-    const dobInput = document.getElementById("dob");
-    const today = new Date();
-
-    const maxDate = new Date(
-        today.getFullYear() - 18,
-        today.getMonth(),
-        today.getDate()
-    );
-    const minDate = new Date(
-        today.getFullYear() - 55,
-        today.getMonth(),
-        today.getDate()
-    );
-
-    const formatDate = (date) => {
-        let month = "" + (date.getMonth() + 1);
-        let day = "" + date.getDate();
-        const year = date.getFullYear();
-        if (month.length < 2) month = "0" + month;
-        if (day.length < 2) day = "0" + day;
-        return `${year}-${month}-${day}`;
-    };
-
-    dobInput.min = formatDate(minDate);
-    dobInput.max = formatDate(maxDate);
+    
 });
