@@ -85,7 +85,25 @@ const saveUserForm = (event) => {
         return;
     }*/
 
-    const entry = {
+    
+    const birthDate = new Date(dob);
+    const today = new Date();
+
+    // Create date thresholds for exact 18th and 56th birthdays
+    const minAgeDate = new Date(today);
+    minAgeDate.setFullYear(today.getFullYear() - 18);
+
+    const maxAgeDate = new Date(today);
+    maxAgeDate.setFullYear(today.getFullYear() - 56);
+
+    // If birthDate is after minAgeDate, user is not 18 yet
+    // If birthDate is before or equal to maxAgeDate, user is older than 55
+    if (birthDate > minAgeDate || birthDate <= maxAgeDate) {
+        alert("Age must be between 18 and 55 years.");
+        return;
+    }
+
+   const entry = {
         name,
         email,
         password,
