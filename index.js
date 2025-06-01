@@ -86,25 +86,22 @@ const saveUserForm = (event) => {
     }*/
 
     
-    const calculateAge = (dob) => {
-    const today = new Date();
-    const birthDate = new Date(dob);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDiff = today.getMonth() - birthDate.getMonth();
-    const dayDiff = today.getDate() - birthDate.getDate();
+const dobParts = dob.split("-");
+const birthDate = new Date(dobParts[0], dobParts[1] - 1, dobParts[2]);
+const today = new Date();
+birthDate.setHours(0, 0, 0, 0);
+today.setHours(0, 0, 0, 0);
 
-    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
-        age--; // hasn't had birthday yet this year
-    }
-    return age;
-};
+let age = today.getFullYear() - birthDate.getFullYear();
+const m = today.getMonth() - birthDate.getMonth();
+if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+}
 
-const age = calculateAge(dob);
 if (age < 18 || age > 55) {
     alert("Age must be between 18 and 55 years.");
     return;
 }
-
    const entry = {
         name,
         email,
