@@ -86,22 +86,24 @@ const saveUserForm = (event) => {
     }*/
 
     
-    const birthDate = new Date(dob);
+    const calculateAge = (dob) => {
     const today = new Date();
+    const birthDate = new Date(dob);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    const dayDiff = today.getDate() - birthDate.getDate();
 
-    // Create date thresholds for exact 18th and 56th birthdays
-    const minAgeDate = new Date(today);
-    minAgeDate.setFullYear(today.getFullYear() - 18);
-
-    const maxAgeDate = new Date(today);
-    maxAgeDate.setFullYear(today.getFullYear() - 56);
-
-    // If birthDate is after minAgeDate, user is not 18 yet
-    // If birthDate is before or equal to maxAgeDate, user is older than 55
-    if (birthDate > minAgeDate || birthDate <= maxAgeDate) {
-        alert("Age must be between 18 and 55 years.");
-        return;
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        age--; // hasn't had birthday yet this year
     }
+    return age;
+};
+
+const age = calculateAge(dob);
+if (age < 18 || age > 55) {
+    alert("Age must be between 18 and 55 years.");
+    return;
+}
 
    const entry = {
         name,
