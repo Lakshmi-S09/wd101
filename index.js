@@ -56,7 +56,7 @@ const saveUserForm = (event) => {
         monthDiff < 0 ||
         (monthDiff === 0 && today.getDate() < dob.getDate())
     ) {
-        age--; // adjust if birthday hasn't occurred this year yet
+        age--; 
     }
 
     if (age < 18 || age > 55) {
